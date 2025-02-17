@@ -1,0 +1,49 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="./lib/react.js"></script>
+    <script src="./lib/babel.js"></script>
+    <script src="./lib/react-dom.js"></script>
+
+    <script type="text/babel">
+      const root = ReactDOM.createRoot(document.querySelector("#root"));
+
+      const colors = ["red", "green", "blue", "yellow"];
+      // 1.将文本定义为变量
+      let message = "你已经点击0次";
+
+      let clickCount = 1;
+
+      let n = 0;
+      //2.监听按钮点击
+      const btnClick = () => {
+        n = n + 1;
+        message = "你已经点击" + n + "次";
+        clickCount = clickCount + 1;
+
+        rootRender();
+      };
+
+      const getColor = () => {
+        return colors[clickCount % colors.length];
+      };
+
+      const rootRender = () => {
+        root.render(
+          <div>
+            <h2 style={{ color: getColor() }}>{message}</h2>
+            <button onClick={btnClick}>点击我变彩虹色🌈</button>
+            {clickCount > 10 && <p> 你触发隐藏成就：彩虹大师</p>}
+          </div>
+        );
+      };
+      rootRender();
+    </script>
+  </body>
+</html>
