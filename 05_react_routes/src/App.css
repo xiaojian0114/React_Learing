@@ -1,0 +1,59 @@
+/* 主导航栏：水平排列 */
+nav {
+  background-color: #333;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+nav a:hover,
+nav a:focus {
+  background-color: gray;
+  color: #333;
+}
+
+nav a.active {
+  background-color: gray;
+  color: #333;
+}
+
+/* Profile 页面的容器 */
+.profile-container {
+  padding: 20px;
+}
+
+/* nav-container 只对 fans 和 follow 设置垂直排列 */
+.nav-container {
+  margin-top: 20px; /* 可选：给垂直导航栏添加顶部间距 */
+}
+
+.nav-container nav {
+  display: flex;
+  flex-direction: column; /* 让Fans和Follow垂直排列 */
+  gap: 10px; /* 设置导航项之间的间距 */
+}
+
+/* nav-container 设置为水平排列，左边为导航栏 */
+.nav-container {
+  display: flex;
+  gap: 20px; /* 导航栏和文本内容之间的间距 */
+}
+
+/* 右边的文本内容 */
+.text-content {
+  flex: 1; /* 使文本内容占据剩余空间 */
+  padding-left: 20px; /* 给文本内容添加左边距 */
+}
+
+.profile-container h2 {
+  margin-bottom: 20px; /* 给标题和内容之间加些间距 */
+}
