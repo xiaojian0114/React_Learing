@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -10,7 +9,7 @@ const Login = ({ onLoginSuccess }) => {
   const navigate = useNavigate();
 
   const users = [
-    { username: "user1", password: "password1" },
+    { username: "wyj", password: "123456" },
     { username: "user2", password: "password2" },
   ];
 

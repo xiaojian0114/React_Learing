@@ -24,7 +24,7 @@ const AppRoutes = () => {
   }, []);
 
   const handleLoginSuccess = () => {
-    setIsLoggedIn(true); // 登录成功后更新状态
+    setIsLoggedIn(true);
   };
 
   return (
