@@ -1,44 +1,61 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import "./NavBar.css";
 
 const NavBar = () => {
-  // 从 localStorage 获取用户信息，检查是否已登录
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
 
-  // 如果用户没有登录，不显示导航栏
-  if (!user) {
-    return null;
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   return (
     <nav>
-      <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
-        Home
-      </NavLink>
-      <NavLink
-        to="/about?name=zhangsan&age=20"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
-        About
-      </NavLink>
-      <NavLink
-        to="/dashboard"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
-        Dashboard
-      </NavLink>
-      <NavLink
-        to="/login"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
-        Login
-      </NavLink>
-      <NavLink
-        to="/book/123"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
-        Book
-      </NavLink>
+      <div className="nav-left">
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/about"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          About
+        </NavLink>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Dashboard
+        </NavLink>
+        <NavLink
+          to="/book/123"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Book
+        </NavLink>
+      </div>
+      <div className="nav-right">
+        {user ? (
+          <>
+            <span className="user-info">欢迎：{user.username}</span>
+            <button className="logout-button" onClick={handleLogout}>
+              退出登录
+            </button>
+          </>
+        ) : (
+          <NavLink
+            to="/login"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Login
+          </NavLink>
+        )}
+      </div>
     </nav>
   );
 };

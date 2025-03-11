@@ -1,63 +1,72 @@
-import React, { useState } from "react";
+// Login.js
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
-const Login = () => {
+const Login = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // 本地用户数据（模拟用户数据库）
   const users = [
     { username: "user1", password: "password1" },
     { username: "user2", password: "password2" },
   ];
 
-  // 处理表单提交
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) navigate("/dashboard");
+  }, [navigate]);
+
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // 验证用户是否存在
+    if (!username || !password) {
+      setError("请输入用户名和密码");
+      return;
+    }
+
     const user = users.find(
-      (user) => user.username === username && user.password === password
+      (u) => u.username === username && u.password === password
     );
+
     if (user) {
-      // 登录成功，跳转到首页并存储用户信息
       localStorage.setItem("user", JSON.stringify(user));
+      onLoginSuccess();
       navigate("/dashboard");
     } else {
-      setError("用户名或密码错误！");
+      setError("用户名或密码错误");
     }
   };
 
   return (
     <div className="login-container">
-      <h2>登录</h2>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="username">用户名</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">密码</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <div className="error-message">{error}</div>}
-        <button type="submit">登录</button>
-      </form>
+      <div className="login-card">
+        <h2>欢迎登录</h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="用户名"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="密码"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          {error && <div className="error-message">{error}</div>}
+          <button type="submit" className="login-button">
+            登录
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
